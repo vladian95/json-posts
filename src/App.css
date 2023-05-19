@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card {
+  width: 400px;
+  background-color: burlywood;
+  border-radius: 20px;
+  margin: 20px 0px;
+}
