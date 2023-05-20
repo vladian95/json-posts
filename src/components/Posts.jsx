@@ -8,15 +8,44 @@ function Posts() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
+  // Immediately Invoked Function Expression
   useEffect(() => {
-    fetch(API_URL) //fetch функция которая отправляет запросы на удаленные сервера
-      .then((response) => response.json())
-      .then((posts) => {
+    (async function () {
+      try {
+        const res = await fetch(API_URL);
+        const posts = await res.json();
         setPosts(posts);
-      })
-      .catch((error) => setError(error.message))
-      .finally(() => setIsLoading(false));
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    })();
   }, []);
+
+  //without Immediately Invoked Function Expression
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await fetch(API_URL);
+  //       const posts = await res.json();
+  //       setPosts(posts);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     }
+  //     setIsLoading(false);
+  //   };
+  //   fetchData();
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch(API_URL) //fetch функция которая отправляет запросы на удаленные сервера
+  //     .then((response) => response.json())
+  //     .then((posts) => {
+  //       setPosts(posts);
+  //     })
+  //     .catch((error) => setError(error.message))
+  //     .finally(() => setIsLoading(false));
+  // }, []);
 
   if (error) {
     return <h1>ERROR FAILED {error}</h1>;
